@@ -146,6 +146,7 @@ percentage) is about 45%, or in probability notation,
 \[ P(\textrm{shot 1 = H}) = 0.45 \]
 
 ```{r finding overall success rate for Kobe}
+library(stringr)
 num_hit_Kobe <- kobe_basket %>% filter(str_detect(description,"Kobe"),shot=="H") %>% summarise(n())
 
 num_throws_Kobe <- kobe_basket %>% filter(str_detect(description,"Kobe")) %>% summarise(n())
@@ -253,6 +254,7 @@ that we use to simulate a coin flip. To simulate a single shot from an
 independent shooter with a shooting percentage of 50% we type,
 
 ```{r sim-basket}
+
 shot_outcomes <- c("H", "M")
 sim_basket <- sample(shot_outcomes, size = 1, replace = TRUE)
 ```
@@ -267,6 +269,7 @@ we need to align both their shooting percentage and the number of attempted shot
 ```{r}
 # type your code for the Exercise here, and Knit
 
+sim_basket <- sample(shot_outcomes, size=133, replace = TRUE, prob = c(0.45, 0.55))
 ```
 
    
@@ -291,6 +294,7 @@ a hot hand.
 ```{r sim-streak-lengths}
 # type your code for the Exercise here, and Knit
 
+sim_streak <- calc_streak(sim_basket)
 ```
    
 <div id="exercise">
@@ -298,6 +302,8 @@ a hot hand.
 </div>
 ```{r plot-sim-streaks}
 # type your code for the Exercise here, and Knit
+
+ggplot(data = sim_streak, aes(x=length)) + geom_histogram(binwidth = 1)
 
 ```
 
